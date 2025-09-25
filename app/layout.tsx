@@ -2,7 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import { GeistSans } from "geist/font/sans"
 import { GeistMono } from "geist/font/mono"
-import { Analytics } from "@vercel/analytics/next"
+
 import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/toaster"
 import { Suspense } from "react"
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   title: "SuperAIExaminer - AI-Powered Exam Generator",
   description: "Generate intelligent exam questions from your documents using AI",
   generator: "v0.app",
-  manifest: "/manifest.json",
+
   keywords: ["AI", "exam", "questions", "study", "education", "quiz"],
   authors: [{ name: "SuperAIExaminer" }],
   viewport: "width=device-width, initial-scale=1, maximum-scale=1",
@@ -32,7 +32,7 @@ export default function RootLayout({
             <Toaster />
           </ThemeProvider>
         </Suspense>
-        <Analytics />
+
       </body>
     </html>
   )
