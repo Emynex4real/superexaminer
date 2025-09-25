@@ -16,7 +16,7 @@ An AI-powered examination and quiz generation platform built with Next.js and Su
 - **Frontend**: Next.js 14, React, TypeScript
 - **Styling**: Tailwind CSS, Radix UI
 - **Backend**: Supabase (Database, Auth, Storage)
-- **AI**: XAI Integration
+- **AI**: DeepSeek Integration
 - **Deployment**: Vercel
 
 ## Getting Started
@@ -31,7 +31,7 @@ An AI-powered examination and quiz generation platform built with Next.js and Su
 Copy `.env.example` to `.env.local` and fill in your values:
 
 - Supabase project URL and keys
-- XAI API key for AI features
+- DeepSeek API key for AI features
 - Vercel Blob token for file uploads
 
 ## Database Setup

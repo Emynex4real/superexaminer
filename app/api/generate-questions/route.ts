@@ -1,5 +1,5 @@
 import { generateObject } from "ai"
-import { xai } from "@ai-sdk/xai"
+import { openai } from "@ai-sdk/openai"
 import { z } from "zod"
 import { createClient } from "@/lib/supabase/server"
 import type { NextRequest } from "next/server"
@@ -54,10 +54,11 @@ export async function POST(request: NextRequest) {
       return new Response("Document not found", { status: 404 })
     }
 
-    // Generate questions using Grok
+    // Generate questions using DeepSeek
     const result = await generateObject({
-      model: xai("grok-beta", {
-        apiKey: process.env.XAI_API_KEY,
+      model: openai("deepseek-chat", {
+        apiKey: process.env.DEEPSEEK_API_KEY,
+        baseURL: "https://api.deepseek.com",
       }),
       schema: questionSchema,
       prompt: `Generate ${questionCount} exam questions based on the following document content. 
