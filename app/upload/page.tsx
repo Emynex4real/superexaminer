@@ -2,14 +2,52 @@ import { redirect } from "next/navigation"
 import { createClient } from "@/lib/supabase/server"
 import { FileUpload } from "@/components/file-upload"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Brain, Upload, FileText, Zap } from "lucide-react"
+import { Brain, Upload, FileText, Zap, AlertCircle } from "lucide-react"
+import { Alert, AlertDescription } from "@/components/ui/alert"
 
 export default async function UploadPage() {
-  const supabase = await createClient()
+  let isConfigured = true
+  let user = null
 
-  const { data, error } = await supabase.auth.getUser()
-  if (error || !data?.user) {
-    redirect("/auth/login")
+  try {
+    const supabase = await createClient()
+    const { data, error } = await supabase.auth.getUser()
+    if (error || !data?.user) {
+      redirect("/auth/login")
+    }
+    user = data.user
+  } catch (error) {
+    isConfigured = false
+  }
+
+  if (!isConfigured) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
+        <div className="container mx-auto px-4 py-8">
+          <div className="max-w-2xl mx-auto">
+            <Alert className="mb-6">
+              <AlertCircle className="h-4 w-4" />
+              <AlertDescription>
+                Supabase is not configured. Please set up your environment variables to enable document upload functionality.
+              </AlertDescription>
+            </Alert>
+            <Card>
+              <CardHeader>
+                <CardTitle>Configuration Required</CardTitle>
+                <CardDescription>To use the upload feature, please configure:</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-sm">
+                  <li>• NEXT_PUBLIC_SUPABASE_URL</li>
+                  <li>• NEXT_PUBLIC_SUPABASE_ANON_KEY</li>
+                  <li>• SUPABASE_SERVICE_ROLE_KEY</li>
+                </ul>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </div>
+    )
   }
 
   return (
